@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Sidorovich Pavel</title>
+  <link rel="stylesheet" href="css/tablestyles.css"/>
+</head>
+
+<body>
+  <center>
+
+    <header>Lab1</header>
+    <div class="scroll-table">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 10%;">ID</th>
+            <th style="width: 45%;">Description</th>
+            <th style="width: 25%;">Upload</th>
+            <th style="width: 10%;">Download</th>
+            <th style="width: 10%;">Remove</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="scroll-table-body">
+        <table><tbody>
+          <% for (var i = 0; i < trows.length; i++) { %>
+          <tr>
+            <td style="width: 10%;"><%= trows[i].id %></td>
+            <td style="width: 45%;"><%= trows[i].Description %></td>
+            <td style="width: 25%;">
+              <form method="post" enctype="multipart/form-data" action="/upload/<%= trows[i].id %>">
+                Selected file: <input type="file" name="uploadFile" style="width: 100%;"><br>
+                <input type="submit" value="Upload">
+              </form>
+            </td>
+            <td style="width: 10%;">
+              <form method="get" enctype="multipart/form-data" action="/download/<%= trows[i].FileName %>">
+                <label>File: <%= trows[i].FileName %></label>
+                <button type="submit">Download</button>
+              </form>
+            </td>
+            <td style="width: 10%;">
+              <form method="post" action="/remove/<%= trows[i].id %>">
+                <button type="submit">Remove</button>
+              </form>
+            </td>
+          </tr>
+          <% } %>
+        </tbody></table>
+      </div>
+    </div>
+
+    <footer></footer>
+
+    <form id="task_push" method="post" action="/add/">
+      <label>
+        Описание:<br>
+        <input style="width: 45%;" type="text" name="Description" id="Description" placeholder="Description" required>
+      </label>
+      <br><br>
+      <input type="submit" value="Добавить">
+    </form>
+
+  </center>
+
+</body>
+
+<script src="/scripts/table.js"></script>
+
+</html>
